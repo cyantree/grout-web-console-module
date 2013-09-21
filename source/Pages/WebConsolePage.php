@@ -9,21 +9,24 @@ use Cyantree\Grout\Filter\ArrayFilter;
 use Cyantree\Grout\Tools\ServerTools;
 use Grout\BootstrapModule\GlobalFactory;
 use Grout\Cyantree\WebConsoleModule\Types\WebConsoleCommand;
+use Grout\Cyantree\WebConsoleModule\Types\WebConsoleResult;
 use Grout\Cyantree\WebConsoleModule\WebConsoleFactory;
 
 class WebConsolePage extends Page
 {
     public function parseTask()
     {
-        $request= $this->task->request->post->get('command');
+        $request = $this->task->request->post->get('command');
         $result = $this->_processRequest($request);
 
-        $this->setResult(GlobalFactory::get($this->app)->appTemplates()->load('Cyantree\WebConsoleModule::console.html', array('command' => $request, 'result' => $result)));
+        $this->setResult(GlobalFactory::get($this->app)->appTemplates()->load('Cyantree\WebConsoleModule::console.html', array('command' => $request, 'result' => $result), false));
     }
 
     protected function _processRequest($request){
+        $result = new WebConsoleResult();
+
         if($request == ''){
-            return '';
+            return $result;
         }
 
         $factory = WebConsoleFactory::get($this->app);
@@ -31,8 +34,9 @@ class WebConsolePage extends Page
 
         $args = ServerTools::parseCommandlineString($request);
 
+        $fullCommand = $request;
+
         $command = $args[0];
-        $result = '';
 
         $get = array();
         if(count($args) > 1){
@@ -54,7 +58,7 @@ class WebConsolePage extends Page
             $command = str_replace('/', '\\', $command);
 
             if(!preg_match('!^[a-zA-Z0-9_/]+$!', $command)){
-                $result = 'Command not found';
+                $result->result = 'Command not found';
             }else{
                 $found = false;
 
@@ -71,13 +75,16 @@ class WebConsolePage extends Page
                 if($found){
                     /** @var WebConsoleCommand $c */
                     $c = new $className();
+                    $c->command = $fullCommand;
                     $c->task = $this->task;
                     $c->app = $this->app;
                     $c->args = new ArrayFilter($get);
+                    $c->postData = new ArrayFilter($this->task->request->post->getData());
+                    $result = $c->result = new WebConsoleResult();
                     $c->execute();
-                    $result = $c->result;
+
                 }else{
-                    $result = 'Command not found';
+                    $result->result = 'Command not found';
                 }
             }
         }catch(PhpWarningException $e){

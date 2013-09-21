@@ -16,14 +16,20 @@ class WebConsoleCommand
     /** @var App */
     public $app;
 
+    /** @var WebConsoleResult */
     public $result;
+
+    public $command;
+
+    /** @var ArrayFilter */
+    public $postData;
 
     public function show($text, $newLine = true)
     {
         if($newLine){
-            $this->result .= $text.chr(10);
+            $this->result->result .= $text.chr(10);
         }else{
-            $this->result .= $text;
+            $this->result->result .= $text;
         }
     }
 
