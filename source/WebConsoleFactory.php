@@ -1,17 +1,21 @@
 <?php
 namespace Grout\Cyantree\WebConsoleModule;
 
+use Cyantree\Grout\App\App;
 use Cyantree\Grout\App\GroutFactory;
-use Grout\BootstrapModule\GlobalFactory;
+use Grout\AppModule\AppFactory;
 use Grout\Cyantree\WebConsoleModule\Types\WebConsoleConfig;
 
-class WebConsoleFactory extends GlobalFactory
+class WebConsoleFactory extends AppFactory
 {
+    /** @var WebConsoleModule */
+    public $module;
+
     /** @return WebConsoleFactory */
-    public static function get($app)
+    public static function get(App $app = null, $moduleId = null)
     {
         /** @var WebConsoleFactory $factory */
-        $factory = GroutFactory::_getInstance($app, __CLASS__);
+        $factory = GroutFactory::_getInstance($app, __CLASS__, $moduleId, 'Cyantree\WebConsoleModule');
 
         return $factory;
     }
@@ -23,20 +27,7 @@ class WebConsoleFactory extends GlobalFactory
         }
 
         /** @var WebConsoleConfig $tool */
-        $tool = $this->app->config->get('Cyantree\WebConsoleModule', 'Cyantree\WebConsoleModule', new WebConsoleConfig());
-
-        $this->_setAppTool(__FUNCTION__, $tool);
-        return $tool;
-    }
-
-    public function appModule()
-    {
-        if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
-            return $tool;
-        }
-
-        /** @var WebConsoleModule $tool */
-        $tool = $this->app->getModuleByType('Cyantree\WebConsoleModule');
+        $tool = $this->app->configs->getConfig($this->module->id);
 
         $this->_setAppTool(__FUNCTION__, $tool);
         return $tool;

@@ -1,5 +1,6 @@
 {
     "name": "cyantree/grout-web-console-module",
+    "version": "1.0",
     "type": "grout-module",
     "description": "module which provides a web based console",
     "keywords": ["grout", "console"],
@@ -8,8 +9,13 @@
     "authors": [
         {"name": "Christoph Schreiber", "email": "mail@cyantree.com"}
     ],
+    "autoload": {
+        "psr-4": {
+            "Grout\\Cyantree\\WebConsoleModule\\": ["", "source/"]
+        }
+    },
     "require": {
-        "cyantree/grout-module-installer": "0.0.*"
+        "cyantree/grout": "1.*"
     },
     "extra": {
         "grout-module-name": "Cyantree/WebConsoleModule"
