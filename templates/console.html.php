@@ -1,5 +1,5 @@
 <?php
-use Grout\AppModule\AppTemplateContext;
+use Grout\AppModule\Types\AppTemplateContext;
 use Grout\Cyantree\WebConsoleModule\Pages\WebConsolePage;
 
 /** @var $this AppTemplateContext */
@@ -124,7 +124,7 @@ $q = $f->appQuick();
 
                         processCommandResponse(command, response);
                     },
-                    error: function(xhr, response) {
+                    error: function(xhr, r) {
                         $status.hide();
 
                         var response = {

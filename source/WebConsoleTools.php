@@ -1,6 +1,7 @@
 <?php
 namespace Grout\Cyantree\WebConsoleModule;
 
+use Cyantree\Grout\Filter\ArrayFilter;
 use Cyantree\Grout\Tools\ServerTools;
 
 class WebConsoleTools
@@ -13,7 +14,7 @@ class WebConsoleTools
 
         $string = $command;
 
-        if (!is_array($args)) {
+        if ($args instanceof ArrayFilter) {
             $args = $args->getData();
         }
 

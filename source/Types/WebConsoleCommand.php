@@ -3,7 +3,7 @@ namespace Grout\Cyantree\WebConsoleModule\Types;
 
 use Cyantree\Grout\App\App;
 use Cyantree\Grout\App\Task;
-use Cyantree\Grout\Filter\ArrayFilter;
+
 use Cyantree\Grout\Tools\StringTools;
 use Grout\Cyantree\WebConsoleModule\Pages\WebConsolePage;
 use Grout\Cyantree\WebConsoleModule\WebConsoleFactory;
