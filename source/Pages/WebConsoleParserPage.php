@@ -24,19 +24,7 @@ class WebConsoleParserPage extends Page
 
         $this->_response = new WebConsoleResponse();
 
-        ErrorWrapper::register();
-
-        try {
-            $this->processRequest($request);
-
-        } catch (\Exception $e) {
-            $this->app->events->trigger('logException', $e);
-            $this->_response->showError('An unknown error has occurred.');
-            $this->_response->redirectInternal = false;
-            $this->_response->redirectToCommand = null;
-        }
-
-        ErrorWrapper::unregister();
+        $this->processRequest($request);
 
         $this->_showResponse($this->_response);
     }
