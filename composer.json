@@ -1,6 +1,6 @@
 {
     "name": "cyantree/grout-web-console-module",
-    "version": "1.4",
+    "version": "1.5",
     "type": "grout-module",
     "description": "module which provides a web based console",
     "keywords": [
