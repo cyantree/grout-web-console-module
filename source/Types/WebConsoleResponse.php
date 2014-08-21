@@ -12,11 +12,6 @@ class WebConsoleResponse
     public $redirectToCommand = null;
     public $redirectInternal = true;
 
-    public function __construct()
-    {
-        $this->data = new ArrayFilter();
-    }
-
     public function redirectTo($command, $internal = true)
     {
         $this->redirectToCommand = $command;
