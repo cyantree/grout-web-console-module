@@ -1,8 +1,6 @@
 <?php
 namespace Grout\Cyantree\WebConsoleModule\Types;
 
-use Cyantree\Grout\Filter\ArrayFilter;
-
 class WebConsoleResponse
 {
     public $content = '';
