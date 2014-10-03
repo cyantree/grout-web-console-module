@@ -24,11 +24,11 @@ class WebConsolePage extends Page
         $this->isUnverifiedExecution = true;
 
         if ($this->command == '') {
-            $this->command = $factory->appConfig()->defaultCommand;
+            $this->command = $factory->config()->defaultCommand;
             $this->execute = true;
             $this->isUnverifiedExecution = false;
         }
 
-        $this->setResult($factory->appTemplates()->load('CyantreeWebConsoleModule::console.html', null, false));
+        $this->setResult($factory->templates()->load('CyantreeWebConsoleModule::console.html', null, false));
     }
 }

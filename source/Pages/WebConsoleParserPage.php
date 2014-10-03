@@ -31,7 +31,7 @@ class WebConsoleParserPage extends Page
 
     public function processRequest(WebConsoleRequest $request){
         $factory = WebConsoleFactory::get($this->app);
-        $config = $factory->appConfig();
+        $config = $factory->config();
 
         $command = str_replace('/', '\\', $request->command);
 

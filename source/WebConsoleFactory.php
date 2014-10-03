@@ -20,7 +20,7 @@ class WebConsoleFactory extends AppFactory
         return $factory;
     }
 
-    public function appConfig()
+    public function config()
     {
         if($tool = $this->_getAppTool(__FUNCTION__, __CLASS__)){
             return $tool;

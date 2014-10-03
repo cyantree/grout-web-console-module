@@ -8,7 +8,7 @@ use Grout\Cyantree\WebConsoleModule\Pages\WebConsolePage;
 $page = $this->task->page;
 
 $f = $this->factory();
-$q = $f->appQuick();
+$q = $f->quick();
 ?>
 <!doctype html>
 <html>
