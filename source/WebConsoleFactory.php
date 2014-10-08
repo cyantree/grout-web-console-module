@@ -15,7 +15,7 @@ class WebConsoleFactory extends AppFactory
     public static function get(App $app = null, $moduleId = null)
     {
         /** @var WebConsoleFactory $factory */
-        $factory = GroutFactory::_getInstance($app, __CLASS__, $moduleId, 'Cyantree\WebConsoleModule');
+        $factory = GroutFactory::getFactory($app, __CLASS__, $moduleId, 'Cyantree\WebConsoleModule');
 
         return $factory;
     }
