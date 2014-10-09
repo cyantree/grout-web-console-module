@@ -19,7 +19,7 @@ class WebConsoleRequest
     /** @var ArrayFilter */
     public $data;
 
-    function __construct()
+    public function __construct()
     {
         $this->args = new ArrayFilter();
         $this->data = new ArrayFilter();
@@ -39,16 +39,18 @@ class WebConsoleRequest
         $request->isUnverifiedExecution = $unverifiedExecution;
 
         $get = array();
-        if(count($args) > 1){
+        if (count($args) > 1) {
             $args = array_splice($args, 1);
-            foreach($args as $arg){
-                if(substr($arg, 0, 2) == '--'){
+            foreach ($args as $arg) {
+                if (substr($arg, 0, 2) == '--') {
                     $get[substr($arg, 2)] = true;
-                }elseif(substr($arg, 0, 1) == '-'){
+
+                } elseif (substr($arg, 0, 1) == '-') {
                     $s = explode('=', $arg, 2);
 
                     $get[substr($s[0], 1)] = count($s) == 2 ? $s[1] : '';
-                }else{
+
+                } else {
                     $get[] = $arg;
                 }
             }

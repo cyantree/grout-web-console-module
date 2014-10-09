@@ -16,42 +16,46 @@ use Grout\Cyantree\WebConsoleModule\WebConsoleFactory;
 class WebConsoleParserPage extends Page
 {
     /** @var WebConsoleResponse */
-    private $_response;
+    private $response;
 
     public function parseTask()
     {
-        $request = WebConsoleRequest::createFromString($this->task->request->post->asString('command')->asInput(), $this->task->request->post->get('unverifiedExecution') == 'true');
+        $request = WebConsoleRequest::createFromString(
+            $this->task->request->post->asString('command')->asInput(),
+            $this->task->request->post->get('unverifiedExecution') == 'true'
+        );
 
-        $this->_response = new WebConsoleResponse();
+        $this->response = new WebConsoleResponse();
 
         $this->processRequest($request);
 
-        $this->_showResponse($this->_response);
+        $this->showResponse($this->response);
     }
 
-    public function processRequest(WebConsoleRequest $request){
+    public function processRequest(WebConsoleRequest $request)
+    {
         $factory = WebConsoleFactory::get($this->app);
         $config = $factory->config();
 
         $command = str_replace('/', '\\', $request->command);
 
-        if(!preg_match('!^[a-zA-Z0-9_/]+$!', $command)){
-            $this->_response->showError('Command not found');
+        if (!preg_match('!^[a-zA-Z0-9_/]+$!', $command)) {
+            $this->response->showError('Command not found');
 
-        }else{
+        } else {
             $found = false;
 
             $className = null;
-            foreach($config->commandNamespaces as $commandNamespace){
-                $className = $commandNamespace.$command.'Command';
+            foreach ($config->commandNamespaces as $commandNamespace) {
+                $className = $commandNamespace . $command . 'Command';
 
-                if(class_exists($className)){
+                if (class_exists($className)) {
                     $found = true;
                     break;
                 }
             }
 
-            if($found){
+            if ($found) {
                 /** @var WebConsoleCommand $c */
                 $c = new $className();
                 $c->request = $request;
@@ -59,8 +63,8 @@ class WebConsoleParserPage extends Page
                 $c->app = $this->app;
                 $c->page = $this;
 
-                $c->result = $this->_response;
-                $this->_response->redirectToCommand = $request->args->get('redirect');
+                $c->result = $this->response;
+                $this->response->redirectToCommand = $request->args->get('redirect');
 
                 $c->init();
 
@@ -68,28 +72,32 @@ class WebConsoleParserPage extends Page
                     $c->execute();
 
                 } else {
-                    $this->_response->showError('Command doesn\'t allow direct execution via URL.');
+                    $this->response->showError('Command doesn\'t allow direct execution via URL.');
                 }
 
                 $c->deInit();
 
-            }else{
-                $this->_response->showError('Command not found');
+            } else {
+                $this->response->showError('Command not found');
             }
         }
 
-        return $this->_response;
+        return $this->response;
     }
 
-    private function _showResponse(WebConsoleResponse $response)
+    private function showResponse(WebConsoleResponse $response)
     {
-        $this->setResult(json_encode(array(
+        $this->setResult(
+            json_encode(
+                array(
                     'messages' => $response->messages,
                     'redirect' => array(
                         'command' => $response->redirectToCommand,
                         'internal' => $response->redirectInternal
                     )
-                )));
+                )
+            )
+        );
     }
 
     public function parseError($code, $data = null)
@@ -97,6 +105,6 @@ class WebConsoleParserPage extends Page
         $response = new WebConsoleResponse();
         $response->showError('An unknown error has occurred.');
 
-        $this->_showResponse($response);
+        $this->showResponse($response);
     }
 }

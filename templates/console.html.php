@@ -147,11 +147,11 @@ $q = $f->quick();
             $status.hide();
 
             <?php
-if ($page->command && $page->execute) {
-?>
-            submitCommand($command.val(), <?= $page->isUnverifiedExecution ? 'true' : 'false' ?>);
-            <?php
-}
+            if ($page->command && $page->execute) {
+                ?>
+                submitCommand($command.val(), <?= $page->isUnverifiedExecution ? 'true' : 'false' ?>);
+                <?php
+            }
  ?>
         });
     </script>
