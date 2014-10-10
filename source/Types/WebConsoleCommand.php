@@ -51,7 +51,8 @@ class WebConsoleCommand
     */
     public function generateCommandLink($command, $title = null)
     {
-        return '<a href="javascript:submitCommand(\'' . StringTools::escapeHtml($command) . '\')">' . StringTools::escapeHtml($title ? $title : $command) . '</a>';
+        return '<a href="javascript:submitCommand(\'' . StringTools::escapeHtml($command) . '\')">'
+        . StringTools::escapeHtml($title ? $title : $command) . '</a>';
     }
 
     public function showHeadline($title, $rawTitle = false, $level = 2)

@@ -158,7 +158,9 @@ $q = $f->quick();
 </head>
 <body>
 <form action="<?=$q->e($this->task->url)?>" method="post">
-    <input type="text" name="command" maxlength="255" size="150" value="<?= $q->e($page->command) ?>" /><a href="<?= $q->e($this->task->route->getUrl()) ?>">Home</a><br />
+    <input type="text" name="command" maxlength="255" size="150" value="<?= $q->e($page->command) ?>" />
+    <a href="<?= $q->e($this->task->route->getUrl()) ?>">Home</a><br />
+
     <input type="submit" name="execute" value="Execute" /><br />
     <div class="warning statusLoading">Please wait...</div>
     <div class="output">
