@@ -22,7 +22,7 @@ class WebConsoleFactory extends AppFactory
 
     public function config()
     {
-        if (!($tool = $this->getTool(__FUNCTION__, false))) {
+        if (!($tool = $this->retrieveTool(__FUNCTION__))) {
             /** @var WebConsoleConfig $tool */
             $tool = $this->app->configs->getConfig($this->module->id);
 
