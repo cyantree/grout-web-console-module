@@ -6,6 +6,7 @@ use Cyantree\Grout\App\GroutFactory;
 use Grout\AppModule\AppFactory;
 use Grout\Cyantree\WebConsoleModule\Types\WebConsoleConfig;
 
+// TODO: Remove dependency of AppFactory
 class WebConsoleFactory extends AppFactory
 {
     /** @var WebConsoleModule */
