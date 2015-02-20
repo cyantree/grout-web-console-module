@@ -29,6 +29,6 @@ class WebConsolePage extends Page
             $this->isUnverifiedExecution = false;
         }
 
-        $this->setResult($factory->templates()->load('CyantreeWebConsoleModule::console.html', null, false));
+        $this->setResult($factory->templates()->load('.Cyantree\WebConsoleModule::console.html', null, false));
     }
 }
